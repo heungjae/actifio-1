@@ -71,6 +71,16 @@ select name,path from v$asm_disk;
 select group_number,name,state,type from v$asm_diskgroup;
 alter system set asm_diskstring='ORCL:*' ;
 
+. oraenv
++ASM
+sqlplus / as sysasm
+shutdown immediate
+alter system set asm_diskstring=NULL scope=spfile;
+alter system set asm_diskstring='ORCL:*','/dev/actifio/asm/*' scope=spfile;
+alter system set asm_diskstring='ORCL:*','/dev/actifio/asm/*' scope=both;
+startup
+
+
 [ ] Switch to the database to be protected	; . oraenv
 [ ] Set the database environment variables	
       export ORACLE_HOME=<oracle home path>
