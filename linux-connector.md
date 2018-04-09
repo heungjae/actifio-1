@@ -26,6 +26,17 @@ Uninstall the package using rpm ‐e udsagent with the package name:
 rpm ‐e connector‐Linux‐6.1.1.20857	
 ```
 
+Disable the firewall:
+```
+service iptables stop
+```
+
+Ensure that the iscsi and iscsid services are automatically started in run level 3, 4 and 5:
+```
+chkconfig --list iscsi
+chkconfig --list iscsid
+```
+
 List of udsagent related commands:
 ```
 /etc/init.d/udsagent status
