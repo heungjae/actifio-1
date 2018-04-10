@@ -71,6 +71,14 @@ select name,path from v$asm_disk;
 select group_number,name,state,type from v$asm_diskgroup;
 alter system set asm_diskstring='ORCL:*' ;
 
+col compatibility format a10
+col database_compatibility format a10
+col name format a15
+set linesize 200
+col total_gb format 99099.99
+col free_gb format 99099.99
+select group_number, name, type, total_mb, total_mb/1024 total_gb, free_mb, free_mb/1024 free_gb, compatibility, database_compatibility from v$asm_diskgroup;
+
 . oraenv
 +ASM
 sqlplus / as sysasm
@@ -195,6 +203,19 @@ col bytes for 9,999,999,999
 select status, enabled, bytes, name, checkpoint_change#  from v$datafile;
 select name, status from v$controlfile;
 select group#, status,type, member from v$logfile;
+
+select host_name from v$instance;
+select platform_name from v$database;
+select file_name from dba_temp_files;
+
+select distinct machine from v$session;
+select name, value, unit from v$pgastat;
+select name, value from v$sga;
+select banner from v$version;
+
+select instance_name, host_name, version, status, logins, database_status, instance_role, active_state from v$instance;
+
+select name, created, sysdate, log_mode, controlfile_type, open_mode, protection_mode, database_role, db_unique_name, platform_name from v$database;
 
 select recid, name, dest_id, sequence#, resetlogs_change#, status, next_change# from v$archived_log;
 
