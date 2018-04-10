@@ -122,3 +122,52 @@ HostName    HostID  HostType  HostIQN                             HostIPs      e
 melnaborcl  5205    Linux     iqn.1988-12.com.oracle:a2677fd2e7a  10.65.5.190  10.65.5.190
 ```
 
+### Linux host
+```
+[root@melnaborcl ~]# ls -l /dev/disk/by-id | grep -i scsi
+lrwxrwxrwx 1 root root  9 Apr  9 19:26 scsi-3638a95f0000000054585c3400001000b -> ../../sdf
+lrwxrwxrwx 1 root root  9 Apr  9 19:11 scsi-3638a95f0000000054585c34000010015 -> ../../sde
+lrwxrwxrwx 1 root root  9 Apr  9 19:11 scsi-3ffffffffffff -> ../../sdd
+
+[root@melnaborcl ~]# ls -l /dev/disk/by-path
+total 0
+lrwxrwxrwx 1 root root  9 Apr  9 19:11 ip-10.65.5.193:3260-iscsi-iqn.2009-04.com.actifio:1194874dfd0-lun-0 -> ../../sdd
+lrwxrwxrwx 1 root root  9 Apr  9 19:11 ip-10.65.5.193:3260-iscsi-iqn.2009-04.com.actifio:1194874dfd0-lun-1 -> ../../sde
+lrwxrwxrwx 1 root root  9 Apr  9 19:26 ip-10.65.5.193:3260-iscsi-iqn.2009-04.com.actifio:1194874dfd0-lun-2 -> ../../sdf
+
+[root@melnaborcl ~]# ls -l /dev/disk/by-label
+total 0
+lrwxrwxrwx 1 root root 10 Apr  8 22:02 DATA1 -> ../../sdb1
+lrwxrwxrwx 1 root root 10 Apr  8 22:02 DATA2 -> ../../sdc1
+
+[root@melnaborcl ~]# ls -l /dev/disk/by-uuid/
+total 0
+lrwxrwxrwx 1 root root 10 Apr  8 22:02 2a3c48ba-70fa-4e32-a611-fca3e7462ae2 -> ../../dm-0
+lrwxrwxrwx 1 root root 10 Apr  8 22:02 4aa2a720-3e99-472f-a81a-dc46d3a65e63 -> ../../sda1
+lrwxrwxrwx 1 root root 10 Apr  8 22:02 e949b30a-d7c0-48be-b047-065930a3f699 -> ../../dm-1
+
+[root@melnaborcl ~]# ls -la /dev/actifio/asm
+total 0
+drwxrwxrwx 2 root   root        80 Apr  9 19:26 .
+drwxrwxrwx 3 root   root        60 Apr  9 00:22 ..
+brw-rw---- 1 oracle oinstall 8, 80 Apr 10 00:55 scsi-638A95F0000000054585C3400001000B
+brw-rw---- 1 oracle oinstall 8, 64 Apr 10 00:55 scsi-638A95F0000000054585C34000010015
+
+# fdisk -l | grep "Disk /dev"
+Disk /dev/sda: 53.7 GB, 53687091200 bytes
+Disk /dev/sdb: 10.7 GB, 10737418240 bytes
+Disk /dev/sdc: 10.7 GB, 10737418240 bytes
+Disk /dev/mapper/vg_melnaborcl-lv_root: 38.4 GB, 38444990464 bytes
+Disk /dev/mapper/vg_melnaborcl-lv_swap: 14.7 GB, 14713618432 bytes
+Disk /dev/sdd: 0 MB, 65536 bytes
+Disk /dev/sde: 53.7 GB, 53687091200 bytes
+Disk /dev/sdf: 53.7 GB, 53687091200 bytes
+
+
+[root@melnaborcl ~]# scsi_id -gud /dev/sde
+3638a95f0000000054585c34000010015
+[root@melnaborcl ~]# scsi_id -gud /dev/sdf
+3638a95f0000000054585c3400001000b
+```
+
+
