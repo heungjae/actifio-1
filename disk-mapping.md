@@ -66,11 +66,41 @@ exportedvolumedata
  529969 | SQ101         | sq1010014016    | rs-5AC044822F00 |       66459 | 638A95F0000000054577CFC00001039B |          | i-1627f0cc518 |     0 |   5
  530060 | SQ101         | sq1010014016    | rs-5AC0702E6200 |       66461 | 638A95F0000000054577CFC00001039D |          | i-1627fb9ed34 |     0 |   6
 (10 rows)
+
+/act/postgresql/bin/psql actdb act -c "select a.id,b.hostname,b.svcname,a.vdiskname,a.vdisknumber,a.uuid,a.portname,a.devicetag,a.hbaid,a.lun from exportedvolumedata a, hostdata b where a.hostname=b.svcname order by id"
+  id  |  hostname  |     svcname     |    vdiskname    | vdisknumber |               uuid               | portname |   devicetag   | hbaid | lun 
+------+------------+-----------------+-----------------+-------------+----------------------------------+----------+---------------+-------+-----
+ 6197 | melnaborcl | melnabor0005205 | rs-5ACBF2F41400 |       65557 | 638A95F0000000054585C34000010015 |          | i-162acad80bd |     0 |   1
+ 7111 | melnaborcl | melnabor0005205 | vm-5ACB40B75C00 |       65547 | 638A95F0000000054585C3400001000B |          | i-162acbbb2e4 |     0 |   2
+(2 rows)
+
+# cat /sys/kernel/scst_tgt/devices/i-162acad80bd/prod_id
+ActifioSky
+[key]
+
+# ls -la /sys/kernel/scst_tgt/devices/
+total 0
+drwxr-xr-x 10 root root 0 Apr 10 09:26 .
+drwxr-xr-x  7 root root 0 Apr  9 12:10 ..
+drwxr-xr-x  3 root root 0 Apr  9 22:11 2:0:0:0
+drwxr-xr-x  3 root root 0 Apr  9 22:11 2:0:1:0
+drwxr-xr-x  3 root root 0 Apr  9 22:11 2:0:2:0
+drwxr-xr-x  3 root root 0 Apr  9 22:11 2:0:3:0
+drwxr-xr-x  3 root root 0 Apr  9 22:11 4:0:0:0
+drwxr-xr-x  3 root root 0 Apr  9 12:10 disk00
+drwxr-xr-x  3 root root 0 Apr 10 09:11 i-162acad80bd
+drwxr-xr-x  3 root root 0 Apr 10 09:26 i-162acbbb2e4
+
+melnabsky:/dumps # zfs list | grep vm-5ACB40B75C00
+act_per_pool000/vm-5ACB40B75C00   541M   487G   500M  -
+melnabsky:/dumps # zfs list | grep rs-5ACBF2F41400
+act_per_pool000/rs-5ACBF2F41400   335M   487G   807M  -
+
 ```
 
 To show CDS iSCSI ports instead of Fibre Channel ports:
 ```
-reportfabrics -i
+reportfabric -i
 
 FabricType  VendorType   HostName                   MappedHostName   MappedHostType  HostStatus  HostIQN                                                Node1Port1:172.24.16.41
 Host        Linux        grid.train.actifio.com     grid_tra3440046  generic         offline     iqn.1994-05.com.redhat:db8bf987928a                    -
@@ -87,5 +117,8 @@ Host        vcenter      vcenter.train.actifio.com  vq-vcent0004301  generic    
 HostName       HostID  HostType  HostIQN                             HostIPs                      eth0:172.24.16.192
 centosa.mdemo  14049   Linux     iqn.1988-12.com.oracle:b99a8d67654  172.24.16.190 172.24.50.190  172.24.16.190
 SQ101          14016   Win32     iqn.1991-05.com.microsoft:sq101     172.24.16.191                172.24.16.191
+
+HostName    HostID  HostType  HostIQN                             HostIPs      eth0:10.65.5.193
+melnaborcl  5205    Linux     iqn.1988-12.com.oracle:a2677fd2e7a  10.65.5.190  10.65.5.190
 ```
 
