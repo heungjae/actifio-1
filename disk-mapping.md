@@ -177,6 +177,19 @@ kfdhdb.grpname:                 ACTDEMO ; 0x048: length=7
 kfdhdb.fgname:             ACTDEMO_0000 ; 0x068: length=12
 kfdhdb.capname:                         ; 0x088: length=0
 
+[oracle@orcl ~]$ asmcmd lsdg
+State    Type    Rebal  Sector  Block       AU  Total_MB  Free_MB  Req_mir_free_MB  Usable_file_MB  Offline_disks  Voting_files  Name
+MOUNTED  EXTERN  N         512   4096  1048576     51200    49385                0           49385              0             N  ACTDEMO/
+MOUNTED  EXTERN  N         512   4096  1048576     20478    17832                0           17832              0             N  DATA/
+MOUNTED  EXTERN  N         512   4096  1048576     51200    39770                0           39770              0             N  VDEMO_ACDG/
+
+[oracle@orcl ~]$ asmcmd lsdsk
+Path
+/dev/actifio/asm/scsi-638A95F0000000054585C3400001000B
+/dev/actifio/asm/scsi-638A95F0000000054585C34000010023
+ORCL:DATA1
+ORCL:DATA2
+
 ```
 
 
