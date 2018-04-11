@@ -168,6 +168,15 @@ Disk /dev/sdf: 53.7 GB, 53687091200 bytes
 3638a95f0000000054585c34000010015
 [root@melnaborcl ~]# scsi_id -gud /dev/sdf
 3638a95f0000000054585c3400001000b
+
+su - oracle
+export ORACLE_SID=+ASM ; ORAENV_ASK=NO ; . oraenv ; unset ORAENV_ASK 
+$ kfed read /dev/actifio/asm/scsi-638A95F0000000054585C3400001000B | grep -i name
+kfdhdb.dskname:            ACTDEMO_0000 ; 0x028: length=12
+kfdhdb.grpname:                 ACTDEMO ; 0x048: length=7
+kfdhdb.fgname:             ACTDEMO_0000 ; 0x068: length=12
+kfdhdb.capname:                         ; 0x088: length=0
+
 ```
 
 
