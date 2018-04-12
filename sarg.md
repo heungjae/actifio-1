@@ -122,4 +122,55 @@ Image_0008103,snapshot,"melnaborcl","demo",5211,1.584,2018-04-10 19:00:44,n/a,20
 Image_0010520,snapshot,"melnaborcl","demo",5211,1.589,2018-04-11 19:00:48,n/a,2018-04-13 19:02:18,melnabsky.local,"" 
 Image_0009903,snapshot,"melnaborcl","wdemo",9253,1.589,2018-04-11 12:15:48,n/a,2018-04-13 12:21:23,melnabsky.local,"" 
 Image_0009949,liveclone,"melnaborcl","wdemo",9253,1.589,2018-04-11 12:15:48,n/a,2100-01-01 00:00:00,melnabsky.local,"LC01" 
+
+reportfabric -i -c
+HostName,HostID,HostType,HostIQN,HostIPs,eth0:10.65.5.193
+melnaborcl,5205,Linux,iqn.1988-12.com.oracle:a2677fd2e7a,10.65.5.190,10.65.5.190
+
+reportjobs -c
+StartDate,JobName,JobClass,Status,PolicyName,HostName,AppName,AppID,Duration
+2018-04-10 16:18:51,Job_0007343,snapshot(DB),succeeded,Production to Snap 1,"melnaborcl","vdemo",6684,00:02:00
+2018-04-10 16:21:17,Job_0007405,liveclone,succeeded,Production to Snap 1,"melnaborcl","vdemo",6684,00:00:50
+2018-04-10 16:22:54,Job_0007507,unmount,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:03:00
+2018-04-10 16:26:40,Job_0007802,delete,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:00:10
+2018-04-10 16:30:00,Job_0007979,delete,succeeded,Production to Snap 1,"melnaborcl","vdemo",6684,00:00:10
+2018-04-10 16:30:21,Job_0007998,expiration,succeeded,Production to Snap 1,"melnaborcl","vdemo",6684,00:00:20
+2018-04-10 19:00:00,Job_0008103,snapshot,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:02:10
+2018-04-11 11:29:47,Job_0008913,mount(AppAware),succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:09:10
+2018-04-11 11:43:02,Job_0009392,unmount,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:02:52
+2018-04-11 11:50:41,Job_0009661,mount(AppAware),succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:02:51
+2018-04-11 12:14:15,Job_0009903,snapshot(DB),succeeded,Production to Snap 1,"melnaborcl","wdemo",9253,00:07:11
+2018-04-11 12:26:34,Job_0009949,liveclone,succeeded,Production to Snap 1,"melnaborcl","wdemo",9253,00:00:40
+2018-04-11 12:30:03,Job_0010014,unmount-delete,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:03:01
+2018-04-11 12:46:27,Job_0010128,mount,succeeded,Production to Snap 1,"melnaborcl","wdemo",9253,00:01:12
+2018-04-11 12:54:22,Job_0010155,unmount-delete,succeeded,Production to Snap 1,"melnaborcl","wdemo",9253,00:03:12
+2018-04-11 13:01:04,Job_0010233,mount,succeeded,Production to Snap 1,"melnaborcl","wdemo",9253,00:01:12
+2018-04-11 14:44:10,Job_0010320,unmount-delete,succeeded,Production to Snap 1,"melnaborcl","wdemo",9253,00:03:20
+2018-04-11 14:48:54,Job_0010355,mount(AppAware),succeeded,Production to Snap 1,"melnaborcl","wdemo",9253,00:09:21
+2018-04-11 15:01:59,Job_0010422,unmount-delete,succeeded,Production to Snap 1,"melnaborcl","wdemo",9253,00:03:03
+2018-04-11 19:00:00,Job_0010520,snapshot,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:02:21
+2018-04-11 20:33:21,Job_0010554,expiration,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:00:11
+2018-04-11 21:10:55,Job_0010571,expiration,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:00:11
+2018-04-11 22:26:04,Job_0010598,expiration,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:00:11
+2018-04-12 09:28:36,Job_0010868,expiration,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:00:10
+
+reportmdlusage -c
+AppType,HostName,AppName,AppID,Template,Profile,Ignored,VirtSize(GB),MDLStat(GB),VDisks,Stage(GB),Snaps(GB),Total(GB),Dedups,PostCompress(GB),LastExpirationDate
+Oracle,"melnaborcl","demo",5211,SnapOnly,LocalProfile,false,50.0,1.589,4,0.563,0.000,0.563,0,0.000,2018-04-13 19:02
+Oracle,"melnaborcl","wdemo",9253,OrphanApp,OrphanApp,Orphan,50.0,1.589,0,0.000,0.000,0.000,0,0.000,2100-01-01 00:00
+
+reportmounts -c
+StartDate,JobName,JobClass,Status,SourceHost,SourceApp,SourceAppID,TargetHost,Duration,VirtualSize(GB),ApplicationSize(GB)
+2018-04-11 11:29:47,Job_0008913,mount(AppAware),Succeeded,"melnaborcl","demo",5211,"melnaborcl",00:09:10,50.000,1.584
+2018-04-11 11:50:41,Job_0009661,mount(AppAware),Succeeded,"melnaborcl","demo",5211,"melnaborcl",00:02:51,50.000,1.584
+2018-04-11 12:46:27,Job_0010128,mount,Succeeded,"melnaborcl","wdemo",9253,"melnaborcl",00:01:12,50.000,1.589
+2018-04-11 13:01:04,Job_0010233,mount,Succeeded,"melnaborcl","wdemo",9253,"melnaborcl",00:01:12,50.000,1.589
+2018-04-11 14:48:54,Job_0010355,mount(AppAware),Succeeded,"melnaborcl","wdemo",9253,"melnaborcl",00:09:21,50.000,1.589
+
+reportsnappool -xvc
+AppType,HostName,AppName,AppID,SourceCluster,Template,Profile,Poolname,Vols,AppSize(GB),VDisks,Stage(GB),Snap(GB),Logs(GB),Mount(GB),Mirror(GB),LiveClone(GB),Rehydrate(GB),Clone(GB),Total(GB)
+Oracle,"melnaborcl","demo",5211,melnabsky.local,SnapOnly,LocalProfile,act_per_pool000,1,1.6,3,0.495,0.035,0.000,0.000,0.000,0.000,0.000,0.000,0.529 
+Oracle,"melnaborcl","wdemo",9253,melnabsky.local,OrphanApp,OrphanApp,act_per_pool000,1,1.6,5,0.491,0.000,0.005,0.000,0.000,0.491,0.000,0.000,0.988 
+UsageTotals(GB),-,-,-,-,-,-,-,-,-,8,0.986,0.035,0.005,0.000,0.000,0.491,0.000,0.000,1.518 
+VDiskCount,-,-,-,-,-,-,-,-,-,8,2,3,2,0,0,1,0,0,8 
 ```
