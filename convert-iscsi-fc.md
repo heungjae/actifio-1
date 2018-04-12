@@ -22,6 +22,8 @@ asmcmd lsdsk
 ```
 - [ ] `iscsiadm -m session` to list all the iSCSI sessions
 - [ ] `iscsiadm -m node -u` to logoff all the sessions on the host
+- [ ] `ls /var/lib/iscsi/nodes`
+- [ ] `iscsiadm -m node -T iqn.2009-04.com.actifio:1194874dfd0 -p 10.65.5.193 -o delete`
 - [ ] `service iscsid stop` to stop the iSCSI daemon process
 - [ ] `service iscsi stop` to stop the iSCSI process
 - [ ] `ls -l /dev/disk/by-id/` to list the devices mapped from Actifio
