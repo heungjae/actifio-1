@@ -3,6 +3,9 @@
 ### List of report commands ###
 
 ```
+To list all applications that are or should be consuming MDL (formerly reportmdlusage):
+reportapps -a 0
+
 reportpools -c
 PoolName,FreeSpaceGiB,UsedSpaceGiB,PoolSizeGiB,PoolSize7DaysAgoGiB,UsageToday%,Usage1DayAgo%,Usage7DaysAgo%,Warn%,Safe%,Status,CompressionRatio,pooltype
 act_ded_pool000 (5 TiB Max Size),845.92,17.68,863.60,0,2,2,0,88,100,Normal,n/a,Dedup
@@ -21,7 +24,8 @@ act_pri_pool000,2018-04-10 03:00:00,98,6,6
 act_pri_pool000,2018-04-11 03:00:00,98,6,6
 act_pri_pool000,2018-04-12 03:00:00,98,6,6
 
-reportsnaps -c -d 7
+To list all the snapshot jobs performed (default last 2 days), look for the change rate and amount of data copied:
+# reportsnaps -c -d 3
 StartDate,JobName,JobClass,PolicyName,HostName,AppName,AppID,Duration,CaptureType,VirtSize(GB),AppSize(GB),DataCopied(GB),ChangeRate%,ExpirationDate
 2018-04-09 20:29:36,Job_0005446c,snapshot,Production to Snap 1,"melnaborcl","demo",5211,00:03:31,FullCopy(ASM),50.000,1.6,1.698,107.70,2018-04-11 20:33:07
 2018-04-09 21:08:34,Job_0005545,snapshot,Production to Snap 1,"melnaborcl","demo",5211,00:02:11,Incremental(ASM),50.000,1.6,0.030,1.90,2018-04-11 21:10:39
@@ -106,6 +110,15 @@ StartDate,JobName,JobClass,Status,PolicyName,HostName,AppName,AppID,Duration
 2018-04-11 22:26:04,Job_0010598,expiration,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:00:11
 2018-04-12 09:28:36,Job_0010868,expiration,succeeded,Production to Snap 1,"melnaborcl","demo",5211,00:00:10
 
+reportrunningjobs
+reportfailedjobs
+reportfailedjobs -a 10234
+
+## To output the failed job and includes the "udstask backup" command at the end. It already has the correct appid and 
+## policy id included. Then add "-options noparent" to the end of the command if the job failed with a fingerprint error.
+reportfailedjobs -c -p 
+
+# To count number of successful jobs completed in each class. Some types are grouped into categories:
 reportjobcount -c
 Event,Count
 delete Jobs,2 
@@ -127,6 +140,7 @@ reportfabric -i -c
 HostName,HostID,HostType,HostIQN,HostIPs,eth0:10.65.5.193
 melnaborcl,5205,Linux,iqn.1988-12.com.oracle:a2677fd2e7a,10.65.5.190,10.65.5.190
 
+## To list all jobs for protected applications
 reportjobs -c
 StartDate,JobName,JobClass,Status,PolicyName,HostName,AppName,AppID,Duration
 2018-04-10 16:18:51,Job_0007343,snapshot(DB),succeeded,Production to Snap 1,"melnaborcl","vdemo",6684,00:02:00
@@ -158,8 +172,10 @@ reportmdlusage -c
 AppType,HostName,AppName,AppID,Template,Profile,Ignored,VirtSize(GB),MDLStat(GB),VDisks,Stage(GB),Snaps(GB),Total(GB),Dedups,PostCompress(GB),LastExpirationDate
 Oracle,"melnaborcl","demo",5211,SnapOnly,LocalProfile,false,50.0,1.589,4,0.563,0.000,0.563,0,0.000,2018-04-13 19:02
 Oracle,"melnaborcl","wdemo",9253,OrphanApp,OrphanApp,Orphan,50.0,1.589,0,0.000,0.000,0.000,0,0.000,2100-01-01 00:00
+reportmdlusage -cx
 
-reportmounts -c
+To list mount, prep-mount and remote-mount jobs in the last two days
+## reportmounts -c ##
 StartDate,JobName,JobClass,Status,SourceHost,SourceApp,SourceAppID,TargetHost,Duration,VirtualSize(GB),ApplicationSize(GB)
 2018-04-11 11:29:47,Job_0008913,mount(AppAware),Succeeded,"melnaborcl","demo",5211,"melnaborcl",00:09:10,50.000,1.584
 2018-04-11 11:50:41,Job_0009661,mount(AppAware),Succeeded,"melnaborcl","demo",5211,"melnaborcl",00:02:51,50.000,1.584
@@ -167,10 +183,21 @@ StartDate,JobName,JobClass,Status,SourceHost,SourceApp,SourceAppID,TargetHost,Du
 2018-04-11 13:01:04,Job_0010233,mount,Succeeded,"melnaborcl","wdemo",9253,"melnaborcl",00:01:12,50.000,1.589
 2018-04-11 14:48:54,Job_0010355,mount(AppAware),Succeeded,"melnaborcl","wdemo",9253,"melnaborcl",00:09:21,50.000,1.589
 
+## To list all active mounts
+reportmountedimages
+
 reportsnappool -xvc
 AppType,HostName,AppName,AppID,SourceCluster,Template,Profile,Poolname,Vols,AppSize(GB),VDisks,Stage(GB),Snap(GB),Logs(GB),Mount(GB),Mirror(GB),LiveClone(GB),Rehydrate(GB),Clone(GB),Total(GB)
 Oracle,"melnaborcl","demo",5211,melnabsky.local,SnapOnly,LocalProfile,act_per_pool000,1,1.6,3,0.495,0.035,0.000,0.000,0.000,0.000,0.000,0.000,0.529 
 Oracle,"melnaborcl","wdemo",9253,melnabsky.local,OrphanApp,OrphanApp,act_per_pool000,1,1.6,5,0.491,0.000,0.005,0.000,0.000,0.491,0.000,0.000,0.988 
 UsageTotals(GB),-,-,-,-,-,-,-,-,-,8,0.986,0.035,0.005,0.000,0.000,0.491,0.000,0.000,1.518 
 VDiskCount,-,-,-,-,-,-,-,-,-,8,2,3,2,0,0,1,0,0,8 
+
+reporthealth
+
+reportdailyfailures
+reportcanceledjobs
+reportconsumption
+reportstats
+
 ```
