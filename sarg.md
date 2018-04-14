@@ -204,6 +204,7 @@ reportstats
 
 ## Tips and Tricks
 
+```
 # Hide the subjobs
 reportrunningjobs -p
 
@@ -231,8 +232,9 @@ reportrbac
 cat /dumps/workflows.txt | /usr/sbin/sendmail -F "nab-workflows-vip5" aaron.tully@actifio.com 
 
 # reportmailer -e michael.chew@actifio.com -r /reportfailedjobs -d9,reportrpo/
+```
 
-
+```
 reportimages had -r option added to show remote images
 reportremoteimages was changed to simply run this:   reportimages -r $@
 
@@ -246,6 +248,7 @@ reportorphanapps has been replaced by: reportapps
 reportorphanimages has been replaced by: reportimages
 reportremoteimages has been replaced by:  reportimages 
 reportvaults has been replaced by:   reportonvaults
+
 
 ## Past reports:
 reportclones            Report all clone jobs.  Filter by recent days, or by recent days and app id
@@ -290,3 +293,4 @@ reportsnappool          Report on the space usage of the snap pool
 reportunprotected       Report all apps that don't have an SLA
 reportvdisks            Report on how VDisks are being used by the system
 reportvms               Report on VM discovery status
+```
