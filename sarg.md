@@ -201,3 +201,92 @@ reportconsumption
 reportstats
 
 ```
+
+## Tips and Tricks
+
+# Hide the subjobs
+reportrunningjobs -p
+
+# Show me mounting from onvault
+reportmounts -o onvault
+
+# Show me system recovery
+reportmounts -j systemrecovery 
+
+# show me system recovery from onvault
+reportmounts -j systemrecovery -d100 -o onvault
+
+# default sorts by Apptype then Hostname then Appname
+reportworkflows
+
+# -t option sorts by target host. So if you know a host is seeing mounts, you can easily see the workflow
+reportworkflows -t
+
+# -w option sorts by workflow name
+reportworkflows -w
+
+# reportrbac can be used to analyse, offload and document the setup of roles and orgs on an Actifio Appliance or AGM
+reportrbac
+
+cat /dumps/workflows.txt | /usr/sbin/sendmail -F "nab-workflows-vip5" aaron.tully@actifio.com 
+
+# reportmailer -e michael.chew@actifio.com -r /reportfailedjobs -d9,reportrpo/
+
+
+reportimages had -r option added to show remote images
+reportremoteimages was changed to simply run this:   reportimages -r $@
+
+reportadvancedpolicies has been replaced by:  reportadvancedsettings
+reportbackups has been replaced by:   reportimages
+reportclonevdisks has been replaced by reportclonedisks
+reportconnectoroptions has been replaced by: reportadvancedsettings 
+reportcons has been replaced by: reportpo
+reportmdlusage has been replaced by:  reportapps
+reportorphanapps has been replaced by: reportapps 
+reportorphanimages has been replaced by: reportimages
+reportremoteimages has been replaced by:  reportimages 
+reportvaults has been replaced by:   reportonvaults
+
+## Past reports:
+reportclones            Report all clone jobs.  Filter by recent days, or by recent days and app id
+reportdaily             Report the quantity of jobs that were run for each app for each type
+reportdailyfailures     Report quantities of failed jobs for each application
+reportdedupasyncs       Report 2 days of dedupasync jobs.  Filter by recent days, or by recent days and app id
+reportdedups            Report 7 days of dedup jobs.  Filter by recent days, or by recent days and app id
+reportdirectdedups      Report 7 days of direct2dedup jobs.  Filter by recent days, or by recent days and app id
+reportexpires           Report 2 days of expiration jobs.  Filter by recent days, or by recent days and app id
+reportfailedjobs        Report 2 days of failed jobs.  Filter by recent days, or by recent days and app id
+reportjobs              Report 2 days of jobs.  Filter by recent days, or by recent days and app id
+reportjobcount          Report how many successful jobs of each class occurred
+reportliveclones        Report 2 days of liveclone jobs.  Filter by recent days, or by recent days and app id
+reportmounts            Report all mount jobs.  Filter by recent days
+reportpoolhistory       Report on pool space history
+reportremotededups      Report 7 days of remote dedup jobs.  Filter by recent days, or by recent days and app id
+reportrestores          Report all restore jobs.  Filter by recent days
+reportsnaps             Report 2 days of snapshot jobs.  Filter by recent days, or by recent days and app id
+reportstats             Report 2 days of backup jobs.  Filter by recent days, or by recent days and app id
+reportsweeps            Report all sweep jobs or optionally all Garbage Collection and sweep jobs
+reportweekly            Report on backups that exist in the pools from the last seven days
+
+
+## Latest:
+reportapps              Report all protected applications sorted by app type, then hostname and appname
+reportappcount          Count all applications and show protection status
+reportbackups           List all backup images in each pool
+reportconnectors        Report all connector versions.  Display help with -h to get update commands
+reportcons              Report the most recent image for each type for each protected application
+reportdedupratio        Report on the ratio of total backup size to dedup pool size
+reportdisables          Report all applications that have scheduling or expiration disabled
+reporteverything        Report as many details as possible about each application.  CSV output only
+reportimages            Lists the quantity of images available for each application
+reportmdiskspace        Report on how the MDisks are used in the pools
+reportmountedimages     Report all mounted images active in the system
+reportperfstats         Report on node IOPS, throughput and response times
+reportpolicies          Report all in-use policies, including number of apps using each one
+reportpools             Report on pool space consumption
+reportremoteimages      Report all backup images resident in an Actifio that originated externally
+reportrunningjobs       Report all jobs currently running in the system
+reportsnappool          Report on the space usage of the snap pool
+reportunprotected       Report all apps that don't have an SLA
+reportvdisks            Report on how VDisks are being used by the system
+reportvms               Report on VM discovery status
