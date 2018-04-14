@@ -64,8 +64,22 @@ Create the service name entry in the tnsnames.ora file at $ORACLE_HOME/network/a
 
 [ ] Recommend enabling database change block tracking. With database CBT off incremental backup time will be impacted. Oracle database block change tracking feature is available in oracle Enterprise Edition. SQL query to check block change tracking enabled/disabled: Run the query from sqlplus connected as sysdba:
     Sql> select * from v$block_change_tracking;"
+```
 
 
+```
+Queries on DBA_FREE_SPACE are Slow (Doc ID 271169.1) - http://m.blog.itpub.net/17252115/viewspace-1165254/
+2) Large number of entries in sys.recyclebin$ can slow down the select on dba_free_space.
+3) This is a normal behavior.
+
+Solution
+Purge the recyclebin.
+For example:
+SQL> purge recyclebin;
+Recyclebin purged.
+Or, as SYSDBA for system wide purging.
+SQL> purge dba_recyclebin;
+Recyclebin purged.
 ```
 
 ### Manual scripts
