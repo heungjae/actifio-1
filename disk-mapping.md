@@ -153,6 +153,7 @@ drwxrwxrwx 3 root   root        60 Apr  9 00:22 ..
 brw-rw---- 1 oracle oinstall 8, 80 Apr 10 00:55 scsi-638A95F0000000054585C3400001000B
 brw-rw---- 1 oracle oinstall 8, 64 Apr 10 00:55 scsi-638A95F0000000054585C34000010015
 
+# Login as root:
 # fdisk -l | grep "Disk /dev"
 Disk /dev/sda: 53.7 GB, 53687091200 bytes
 Disk /dev/sdb: 10.7 GB, 10737418240 bytes
