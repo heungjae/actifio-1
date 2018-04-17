@@ -388,3 +388,102 @@ To uninstall the package:
 rpm –e iscsi-initiator-utils-6.2.0.872-10.el5
 ```
 Note: -e : erase (remove) package
+
+### iSCSI on Windows
+```
+C:\scripts>iscsicli sessionlist
+Microsoft iSCSI Initiator Version 6.1 Build 7601
+
+Total of 0 sessions
+
+The operation completed successfully.
+
+C:\scripts>iscsicli sessionlist
+Microsoft iSCSI Initiator Version 6.1 Build 7601
+
+Total of 1 sessions
+
+Session Id             : fffffa800973a428-4000013700000002
+Initiator Node Name    : iqn.1991-05.com.microsoft:melnabsql
+Target Node Name       : (null)
+Target Name            : iqn.2009-04.com.actifio:1194874dfd0
+ISID                   : 40 00 01 37 00 00
+TSID                   : 00 0a
+Number Connections     : 1
+
+    Connections:
+
+        Connection Id     : fffffa800973a428-1
+        Initiator Portal  : 0.0.0.0/3265
+        Target Portal     : 10.65.5.193/3260
+        CID               : 01 00
+
+    Devices:
+        Device Type            : Disk
+        Device Number          : 1
+        Storage Device Type    : 7
+        Partition Number       : 0
+        Friendly Name          : SCST_FIO disk00 SCSI Disk Device
+        Device Description     : Disk drive
+        Reported Mappings      : Port 33, Bus 0, Target Id 0, LUN 0
+        Location               : Bus Number 0, Target Id 0, LUN 0
+        Initiator Name         : ROOT\ISCSIPRT\0000_0
+        Target Name            : iqn.2009-04.com.actifio:1194874dfd0
+        Device Interface Name  : \\?\scsi#disk&ven_scst_fio&prod_disk00#1&1c121344&0&000000#{53f56307-b6bf-11d0-94f2-00a0c91efb8b}
+        Legacy Device Name     : \\.\PhysicalDrive1
+        Device Instance        : 0x82c
+
+The operation completed successfully.
+
+C:\scripts>iscsicli listtargets
+Microsoft iSCSI Initiator Version 6.1 Build 7601
+
+Targets List:
+    iqn.2009-04.com.actifio:1194874dfd0
+The operation completed successfully.
+
+C:\scripts>iscsicli listpersistenttargets
+Microsoft iSCSI Initiator Version 6.1 Build 7601
+
+Total of 1 peristent targets
+    Target Name           : iqn.2009-04.com.actifio:1194874dfd0
+    Address and Socket    : 10.65.5.193 3260
+    Session Type          : Data
+    Initiator Name        : ROOT\ISCSIPRT\0000_0
+    Port Number           : <Any Port>
+    Security Flags        : 0x0
+    Version              : 0
+    Information Specified: 0x20
+    Login Flags          : 0x0
+    Username             :
+
+The operation completed successfully.
+
+C:\scripts>iscsicli reporttargetmappings
+Microsoft iSCSI Initiator Version 6.1 Build 7601
+
+Total of 1 mappings returned
+    Session Id             : fffffa800973a428-4000013700000002
+    Target Name            : iqn.2009-04.com.actifio:1194874dfd0
+    Initiator              : ROOT\ISCSIPRT\0000_0
+    Initiator Scsi Device  : \\.\Scsi33:
+    Initiator Bus          : 0
+    Initiator Target Id    : 0
+        Target Lun: 0x0 <--> OS Lun: 0x0
+        Target Lun: 0x100 <--> OS Lun: 0x1
+
+The operation completed successfully.
+
+C:\scripts>iscsicli LogoutTarget fffffa800973a428-4000013700000002
+Microsoft iSCSI Initiator Version 6.1 Build 7601
+
+The operation completed successfully.
+
+C:\scripts>iscsicli sessionlist
+Microsoft iSCSI Initiator Version 6.1 Build 7601
+
+Total of 0 sessions
+
+The operation completed successfully.
+
+```
