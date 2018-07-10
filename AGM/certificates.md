@@ -5,7 +5,7 @@ mkdir /etc/nginx/ssl
 cd /etc/nginx/ssl
 ```
 
-Generating an SSL private key to sign the server certificate:
+Generating an SSL private key to sign the server certificate. Enter `password` for the passphrase for server.key:
 ```
 openssl genrsa -des3 -out server.key 2048
 ```
