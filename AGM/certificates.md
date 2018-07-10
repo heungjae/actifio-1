@@ -131,3 +131,56 @@ adlagm.localhost
 
 EOF
 ```
+
+
+##### Certificate conversion
+
+The following certificate file formats:
+
+Linux:
+1) PEM is a base64 encoded certificate placed between the headers -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----. It is the most widespread certificate format, which is mostly used by Linux-based servers, like Apache, Nginx. PEM certificates may have the following file extensions: *.pem, *.crt, *.cer. 
+
+
+Windows:
+2) PKCS#7 is another certificate with Base64 encoding that is used generally by Windows and Java-based Tomcat servers, and may contain domain end-entity certificate and CA chain certificates. If you open a PKCS#7 file in a text editor, you can see the encoded text between -----BEGIN PKCS7----- and -----END PKCS7----- tags. The most common extensions are: *.p7b, *.p7s, *.cer.
+
+3) PKCS#12/PFX is a file in binary format that contains the certificate with a corresponding private key and is protected by a password. Optionally, the file can include the CA chain certificates as well. Usually, PFX certificates are used on Windows machines, and are essential for transferring the certificate from one Windows server to another. The file extensions are: *.p12 and *.pfx.
+
+
+From PEM to PKCS#7
+```
+openssl crl2pkcs7 -nocrl -certfile your_pem_certificate.crt -out your_pkcs7_certificate.p7b -certfile CA-bundle.crt
+```
+
+From PKCS#7 to PEM
+```
+openssl pkcs7 -print_certs -in your_pkcs7_certificate.p7b -out your_pem_certificates.pem
+```
+
+If PKCS#7 file included the chain certificates, the newly generated .pem file would include them as well, separately.
+
+From PEM to PFX
+```
+openssl pkcs12 -export -out your_pfx_certificate.pfx -inkey your_private.key -in your_pem_certificate.crt -certfile CA-bundle.crt
+```
+
+You will be also prompted to specify the password for the PFX file. Make sure you remember the password, it will be used when you need to import the PFX to a new server.
+
+From PFX to PEM
+```
+openssl pkcs12 -in your_pfx_certificate.pfx -out your_pem_certificates_and_key.pem -nodes
+```
+
+You will be asked to specify the password that was used when creating the PFX file you are converting. The obtained PEM file will contain the certificate, chain certificates (optionally) and the private key.
+
+From PKCS#7 to PFX
+
+To convert a certificate from PKCS#7 to PFX, the certificate should be first converted into PEM:
+```
+openssl pkcs7 -print_certs -in your_pkcs7_certificate.p7b -out your_pem_certificates.pem
+```
+
+After that, the certificate can be converted into PFX.
+```
+openssl pkcs12 -export -out your_pfx_certificate.pfx -inkey your_private.key -in your_pem_certificate.crt
+```
