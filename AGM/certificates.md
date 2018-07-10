@@ -10,6 +10,11 @@ Generating an SSL private key to sign the server certificate:
 openssl genrsa -des3 -out server.key 2048
 ```
 
+View the server certificate:
+```
+cat /etc/nginx/ssl/server.key
+```
+
 Generating a certificate signining request:
 ```
 openssl req -new -key server.key -out server.csr
