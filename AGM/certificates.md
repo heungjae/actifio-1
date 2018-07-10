@@ -100,6 +100,11 @@ cp /etc/nginx/ssl/server.crt /act/certs/nginx.cert
 cp /etc/nginx/ssl/server.key /act/certs/nginx.key
 ```
 
+Confirm the nginx syntax is correct:
+```
+nginx -t
+```
+
 Restart the nginx server:
 ```
 service nginx restart
