@@ -185,3 +185,28 @@ After that, the certificate can be converted into PFX.
 ```
 openssl pkcs12 -export -out your_pfx_certificate.pfx -inkey your_private.key -in your_pem_certificate.crt
 ```
+
+#### openssl
+```
+Debugging Using OpenSSL
+Check an MD5 hash of the public key to ensure that it matches with what is in a CSR or private key
+openssl x509 -noout -modulus -in certificate.crt | openssl md5
+openssl rsa -noout -modulus -in privateKey.key | openssl md5
+openssl req -noout -modulus -in CSR.csr | openssl md5
+
+Check an SSL connection. All the certificates (including Intermediates) should be displayed
+openssl s_client -connect www.paypal.com:443
+
+Checking Using OpenSSL
+Check a Certificate Signing Request (CSR)
+openssl req -text -noout -verify -in CSR.csr
+
+Check a private key
+openssl rsa -in privateKey.key -check
+
+Check a certificate
+openssl x509 -in certificate.crt -text -noout
+
+Check a PKCS#12 file (.pfx or .p12)
+openssl pkcs12 -info -in keyStore.p12
+```
