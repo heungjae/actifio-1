@@ -96,9 +96,8 @@ cp server.key server.crt.org
 
 Copy the files to the location specified in /act/emsrv/nginx_server.conf file:
 ```
-cd /act/certs
-cp /etc/nginx/ssl/server.crt nginx.cert
-cp /etc/nginx/ssl/server.key nginx.key
+cp /etc/nginx/ssl/server.crt /act/certs/nginx.cert
+cp /etc/nginx/ssl/server.key /act/certs/nginx.key
 ```
 
 Restart the nginx server:
