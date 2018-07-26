@@ -9,7 +9,7 @@ file=".keystore-`date +'%Y-%m-%d'`"
 echo "mv /act/certs/.keystore $file" >> $outfile
 
 
-/act/jre/bin/keytool -genkey -dname "C=AU,S=Vic,L=Melbourne,CN=melnabsky" -alias tomcat -keyalg RSA -keystore /act/certs/.keystore1 -storepass actifio1 -keypass actifio1 -keysize 2048 -sigalg SHA256withRSA
+/act/jre/bin/keytool -genkey -dname "C=AU,S=Vic,L=Melbourne,CN=melnabsky" -alias tomcat -keyalg RSA -keystore /act/certs/.keystore1 -storepass actifio1 -keypass actifio1 -keysize 2048 -sigalg SHA256withRSA -ext san=dns:melnabsky,ip:10.65.5.193
 /act/jre/bin/keytool -import -noprompt -trustcacerts -keystore /act/certs/.keystore1 -storepass actifio1 -alias tc -file /act/certs/uds.pem
 /act/jre/bin/keytool -list -keystore /act/certs/.keystore1 -storepass actifio1 
 
