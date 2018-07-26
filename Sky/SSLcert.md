@@ -24,3 +24,8 @@ monit start tomcat
 
 cat $outfile
 ```
+
+On the client:
+```
+echo -n | openssl s_client -connect 10.65.5.193:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ./melnabsky.cert
+```
