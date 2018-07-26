@@ -36,6 +36,8 @@ sudo security add-trusted-cert -d -r trustRoot -k $HOME/Library/Keychains/login.
 sudo security delete-certificate -c "<name of existing certificate>"
 ```
 
+You need to perform the following steps to add certificates to the Trusted Root Certification Authorities store for a local computer:
+
 Windows
 ```
 Click Start, click Start Search, type mmc, and then press ENTER.
