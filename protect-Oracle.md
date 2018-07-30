@@ -16,47 +16,12 @@ Linux melnaborcl 2.6.32-696.23.1.el6.x86_64 #1 SMP Tue Mar 13 22:44:18 UTC 2018 
 
 #### Each Oracle Database to be Protected Must be Running
 
-##### Set the Oracle Database SID Entry
-The database SID entry must be set in the /etc/oratab file (/var/opt/oracle/oratab on Solaris). For a database named “oasm” the entry looks like: `oasm:/home/oracle/app/oracle/product/11.1.0/db_1:Y`
-
-[ ] The Oracle listener is up and running: `ps –ef | grep tns`. Alternatively login to Oracle OS user, set up the Oracle environment and run: Lsnrctl status
-
-##### The Database Must Be Running in Archive Log Mode
-
-
 ##### The ASM diskstring Parameter Must Be Set
 If you are using Oracle ASM protection out-of-band, then check that the ASM diskstring parameter is not null. Log into the database server as ASM OS user and set the ASM environment variable:
 
 Following is the checklist:
-[ ] If you are using Actifio ASM out-of-band protection, ensure ASM disk strings parameter is not null	
-[ ] Connect to the +ASM instance, and login as ASM user (sqlplus / as sysasm). From the connected session, run `show parameter asm_diskstring`
 
-```
-set lines 120
-col name for a30
-col path for a30
-col state for a30
-select name,path from v$asm_disk;
-select group_number,name,state,type from v$asm_diskgroup;
-alter system set asm_diskstring='ORCL:*' ;
 
-col compatibility format a10
-col database_compatibility format a10
-col name format a15
-set linesize 200
-col total_gb format 99099.99
-col free_gb format 99099.99
-select group_number, name, type, total_mb, total_mb/1024 total_gb, free_mb, free_mb/1024 free_gb, compatibility, database_compatibility from v$asm_diskgroup;
-
-. oraenv
-+ASM
-sqlplus / as sysasm
-shutdown immediate
-alter system set asm_diskstring=NULL scope=spfile;
-alter system set asm_diskstring='ORCL:*','/dev/actifio/asm/*' scope=spfile;
-alter system set asm_diskstring='ORCL:*','/dev/actifio/asm/*' scope=both;
-startup
-```
 
 Following is the checklist:
 [ ] Switch to the database to be protected	; `. oraenv`
