@@ -13,10 +13,6 @@ uname -a
 Linux melnaborcl 2.6.32-696.23.1.el6.x86_64 #1 SMP Tue Mar 13 22:44:18 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
 ```
  
-The following files need to contain the relevant enteries for the database that you wish to protect using Actifio
--	oratab file
--	tnsnames.ora file
--	listener.ora file
 
 #### Each Oracle Database to be Protected Must be Running
 
@@ -26,40 +22,7 @@ The database SID entry must be set in the /etc/oratab file (/var/opt/oracle/orat
 [ ] The Oracle listener is up and running: `ps –ef | grep tns`. Alternatively login to Oracle OS user, set up the Oracle environment and run: Lsnrctl status
 
 ##### The Database Must Be Running in Archive Log Mode
-To verify that the database is running in archive log mode, log into the database server as Oracle OS user and set the database environment variable:
 
-[ ] the Oracle database should be in archive log mode.
-
-To find out whether the database is running in archivelog mode:
-```
-sqlplus / as sysdba
-archive log list;
-shutdown immediate;
-startup mount;
-alter database archivelog;
-alter database open;
-archive log list;
-
-set lines 120
-select incarnation#, resetlogs_time, resetlogs_change#, prior_resetlogs_change#, status from v$database_incarnation;
-select name, created, resetlogs_change#, log_mode, open_resetlogs, open_mode, database_role, current_scn from v$database;
-```
-
-##### The Database Should be Using spfile
-To verify that the database is running with spfile:
-```
-show parameter spfile;
-create spfile from pfile;
-```
-
-Following is the checklist:
-[ ] Set ORACLE_HOME
-[ ] Ensure the Oracle database to be protected is up and running	-->  `ps -ef | grep pmon`
-[ ] Oracle database SID entry must be in /etc/oratab file	--> "For a database named `oasm` ,the entry looks like:
-      `oasm:/home/oracle/app/oracle/product/11.1.0/db_1:Y`
-[ ] Ensure the listener must be up and running	-->  ps -ef | grep tns
-[ ] Up the listener if it's down	-->  `su - oracle ; . oraenv ; lsnrctl status`
-[ ]	`lsnrctl start ; lsnrctl reload ; lsnrctl services`
 
 ##### The ASM diskstring Parameter Must Be Set
 If you are using Oracle ASM protection out-of-band, then check that the ASM diskstring parameter is not null. Log into the database server as ASM OS user and set the ASM environment variable:
