@@ -17,31 +17,7 @@ Linux melnaborcl 2.6.32-696.23.1.el6.x86_64 #1 SMP Tue Mar 13 22:44:18 UTC 2018 
 #### Each Oracle Database to be Protected Must be Running
 
 ##### The ASM diskstring Parameter Must Be Set
-If you are using Oracle ASM protection out-of-band, then check that the ASM diskstring parameter is not null. Log into the database server as ASM OS user and set the ASM environment variable:
 
-Following is the checklist:
-
-
-
-Following is the checklist:
-[ ] Switch to the database to be protected	; `. oraenv`
-[ ] Set the database environment variables	
-```
-      export ORACLE_HOME=<oracle home path>
-      export ORACLE_SID=<database instance name>
-      export ORACLE_SID=orcl 
-      export ORACLE_BASE=/u01/app/oracle
-      export ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1
-      export TNS_ADMIN=$ORACLE_HOME/network/admin      
-      export PATH=$ORACLE_HOME/bin:$PATH"
-```
-[ ] Verify database is running with spfile. Look out for the VALUE column for spfile.
-```
-> sql> show parameter spfile  
-> sql> # create spfile from pfile;  
-```      
-[ ] Verify database is running in archive mode. You should see Archive Mode in the Database log mode.
-> sql> archive log list  
       
 [ ] Enable archivelog if it's not running. Test button will fail (NOARCHIVELOG mode is not supported)
 ```
@@ -126,21 +102,8 @@ Create the service name entry in the tnsnames.ora file at $ORACLE_HOME/network/a
 ##### Oracle Database change block tracking (BCT):
 
 [ ] Recommend enabling database change block tracking. With database CBT off incremental backup time will be impacted. Oracle database block change tracking feature is available in oracle Enterprise Edition. SQL query to check block change tracking enabled/disabled: Run the query from sqlplus connected as sysdba:
-```
-    sql> select * from v$block_change_tracking;
-    
-    set lines 120
-    col status for a10
-    col filename for a30
-    col bytes for 999,999
-     select status, filename,bytes from v$block_change_tracking;
-```
+   
 
-Using ASM Disk Group
-`alter database enable block change tracking using file '<ASM Disk Group Name>/<database name>/<dbname>.bct';`
-
-Using File System
-`alter database enable block change tracking using file '$ORACLE_HOME/dbs/<dbname>.bct';`
 
 ```
 set lines 150
