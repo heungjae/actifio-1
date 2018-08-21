@@ -1,6 +1,7 @@
 ## Introduction
 
 ### Checklist
+The following is a checklist of all the required settings and components in an Oracle database prior to capturing it 
 ```
 The following files need to contain the relevant enteries for the database that you wish to protect using Actifio
 •	oratab file
