@@ -1,39 +1,26 @@
 ## Introduction
 
 ### Checklist
-The following is a checklist of all the required settings and components in an Oracle database prior to capturing it 
+The following is a checklist of all the required settings and components in an Oracle database prior to capturing it using Actifio software.
+
 ```
 The following files need to contain the relevant enteries for the database that you wish to protect using Actifio
-•	oratab file
-•	tnsnames.ora file
-•	listener.ora file
+•	oratab file : typically contains an entry for each database, used by the oraenv software.
+•	tnsnames.ora file : configuration file containing the net service names, used to connect to an Oracle database
+•	listener.ora file : configuration file for a listener. Listener receives the incoming client connection requests and direct them to the database server.
 
-[ ] Oracle Listener should be running and,
-[ ] the Oracle database should be in archive log mode.
-[ ] Set ORACLE_HOME
-[ ] Ensure the Oracle database to be protected is up and running	-->  ps -ef | grep pmon
-[ ] Oracle database SID entry must be in /etc/oratab file	--> "For a database named ""oasm"",the entry looks like:
-      oasm:/home/oracle/app/oracle/product/11.1.0/db_1:Y"
-[ ] Ensure the listener must be up and running	-->  ps -ef | grep tns
-[ ] Up the listener if it's down	-->  su - oracle ; . oraenv ; lsnrctl status"
-[ ]	lsnrctl start ; lsnrctl reload ; lsnrctl services
-
-[ ] If you are using Actifio ASM out-of-band protection, ensure ASM disk strings parameter is not null	
-[ ] Log in as ASM OS user (connect to the +ASM instance) and run  -->  show parameter asm_diskstring
-
-[ ] Switch to the database to be protected	; . oraenv
-[ ] Set the database environment variables	
+[ ] Login as oracle, and set ORACLE_HOME and database environment variables manually, 
       export ORACLE_HOME=<oracle home path>
       export ORACLE_SID=<database instance name>
       export ORACLE_SID=orcl 
       export ORACLE_BASE=/u01/app/oracle
       export ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1
       export TNS_ADMIN=$ORACLE_HOME/network/admin      
-      export PATH=$ORACLE_HOME/bin:$PATH"
-[ ] Verify database is running with spfile. Look out for the VALUE column for spfile.
-      sql> show parameter spfile
-      sql> # create spfile from pfile;
-[ ] Verify database is running in archive mode. You should see Archive Mode in the Database log mode.
+      export PATH=$ORACLE_HOME/bin:$PATH"    
+    or switch to the database to be protected by running 
+    -->  . oraenv
+      
+[ ] Verify database is running in ARCHIVE LOG mode. You should be able to check the archive mode in the Database log mode.
       sql> archive log list
 [ ] Enable archivelog if it's not running. Test button will fail (NOARCHIVELOG mode is not supported)
       SQL> archive log list;
@@ -42,6 +29,28 @@ The following files need to contain the relevant enteries for the database that 
       alter system set db_recovery_file_dest='+data'
       SQL> alter database archivelog;
       SQL> alter database open;
+[ ] Verify database is running with spfile. Look out for the VALUE column for spfile.
+      sql> show parameter spfile
+      sql> # create spfile from pfile;
+[ ] Recommend enabling database change block tracking. With database CBT off incremental backup time will be impacted. Oracle 
+    database block change tracking feature is available in oracle Enterprise Edition. SQL query to check block change tracking
+    enabled/disabled: Run the query from sqlplus connected as sysdba:
+       sql> select * from v$block_change_tracking;"
+    
+      
+[ ] Ensure the Oracle database to be protected is up and running	
+    -->  ps -ef | grep pmon
+[ ] Oracle database SID entry must be in /etc/oratab file . For a database named "oasm",the entry looks like:
+      oasm:/home/oracle/app/oracle/product/11.1.0/db_1:Y"
+[ ] Ensure the listener must be up and running	-->  ps -ef | grep tns
+[ ] Bring up the listener if it's down	
+    -->  su - oracle ; . oraenv ; lsnrctl status ; lsnrctl start ; lsnrctl reload ; lsnrctl services
+[ ] If you are using Actifio ASM out-of-band protection, ensure ASM disk strings parameter is not null. Login as ASM OS user (connect to the +ASM instance), and run  
+    -->  show parameter asm_diskstring
+
+
+
+
 Create a database user account for Actifio backup (if not provided):
 sql> create user act_rman_user identified by <password>;
 e.g. SQL> create user act_rman_user identified by act_rman_user default tablespace users;
@@ -63,8 +72,7 @@ Creating a Servicename Entry in tnsnames.ora
 Create the service name entry in the tnsnames.ora file at $ORACLE_HOME/network/admin or at $GRID_HOME/network/admin by adding the entry: 
 <service_name> = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = <IP of the database server>)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = <service_name>)) )"
 
-[ ] Recommend enabling database change block tracking. With database CBT off incremental backup time will be impacted. Oracle database block change tracking feature is available in oracle Enterprise Edition. SQL query to check block change tracking enabled/disabled: Run the query from sqlplus connected as sysdba:
-    Sql> select * from v$block_change_tracking;"
+
 ```
 
 
