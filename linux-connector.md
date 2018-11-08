@@ -31,10 +31,50 @@ Disable the firewall:
 service iptables stop
 ```
 
+Display the status of the current firewall settings :  
+```
+service iptables status 
+```
+
+Insert (-i) a firewall rule for the Actifio connector : 
+```
+iptables -I INPUT -i eth0 -p tcp -s <CDS-IP>/32 --dport 5106 -j ACCEPT  
+iptables -I OUTPUT  -p tcp --sport 5106 -j ACCEPT  
+iptables -I INPUT -i eth0 -p tcp -s <CDS-IP>/32 --dport 56789 -j ACCEPT 
+iptables -I OUTPUT  -p tcp --sport 56789 -j ACCEPT
+```
+
+On the Linux host, confirm the ports are opened between the two hosts: 
+```
+netstat –ano | grep 5106 
+netstat –ano | grep 56789
+```
+
+Confirm the firewall ports are opened by running the following command from the Actifio appliance:
+```
+telnet <Linux-IP> 5106 
+telnet <Linux-IP> 56789
+```
+
 Ensure that the iscsi and iscsid services are automatically started in run level 3, 4 and 5:
 ```
 chkconfig --list iscsi
 chkconfig --list iscsid
+```
+
+To make it persistent, save the changes to /etc/config/iptables by running:
+```
+service iptables save
+```
+
+Reload the iptables and restart the firewall service:
+```
+service iptables restart
+```
+
+To disable the firewall:
+```
+service iptables stop
 ```
 
 List of udsagent related commands:
