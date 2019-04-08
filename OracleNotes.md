@@ -68,8 +68,8 @@ The following files need to contain the relevant enteries for the database that 
 [ ] If you are using Actifio ASM out-of-band protection, ensure ASM disk strings parameter is not null. Login as ASM OS user (connect to the +ASM instance), and run  
     -->  show parameter asm_diskstring
 
-
-
+To find out the service name:   
+   select value from v$parameter where name='service_names';
 
 Create a database user account for Actifio backup (if not provided):
 sql> create user act_rman_user identified by <password>;
