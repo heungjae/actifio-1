@@ -46,6 +46,13 @@ The following files need to contain the relevant enteries for the database that 
     enabled/disabled: Run the query from sqlplus connected as sysdba:
        sql> select * from v$block_change_tracking;"
     
+    If tracking is not enabled, then enable database tracking from sqlplus:
+   
+    Using ASM Disk Group
+    sql> alter database enable block change tracking using file '<ASM Disk Group Name>/<database name>/<dbname>.bct';
+    
+    Using File System
+    sql> alter database enable block change tracking using file '$ORACLE_HOME/dbs/<dbname>.bct';    
       
 [ ] Ensure the Oracle database to be protected is up and running	
     -->  ps -ef | grep pmon
