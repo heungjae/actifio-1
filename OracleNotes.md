@@ -38,6 +38,10 @@ The following files need to contain the relevant enteries for the database that 
       alter system set db_recovery_file_dest='+data'
       SQL> alter database archivelog;
       SQL> alter database open;
+     
+     SQL> alter system set log_archive_dest='/home/oracle/oradata/orcl/archlogs/' scope=spfile;
+     SQL> alter system set log_archive_format='arch_%t_%s_%r.arc' scope=spfile;
+      
 [ ] Verify database is running with spfile. Look out for the VALUE column for spfile.
       sql> show parameter spfile
       sql> # create spfile from pfile;
