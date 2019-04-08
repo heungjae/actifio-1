@@ -66,6 +66,13 @@ telnet <Linux-IP> 5106
 telnet <Linux-IP> 56789
 ```
 
+Turn on the iscsi and iscsid services for default run level 2, 3, 4 and 5:
+```
+chkconfig iscsi on
+chkconfig iscsid on
+chkconfig --level 345 iscsi on
+```
+
 Ensure that the iscsi and iscsid services are automatically started in run level 3, 4 and 5:
 ```
 chkconfig --list iscsi
