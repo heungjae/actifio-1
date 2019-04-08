@@ -6,12 +6,12 @@ How to install Actifio connector on a Linux host
 
 Install the Actifio connector from the Actifio appliance
 ```
-yum -y localinstall http://10.65.5.193/connector-Linux-latestversion.rpm
+yum -y localinstall http://10.65.5.204/connector-Linux-latestversion.rpm
 ```
 
 Alternatively, download and install it:
 ```
-curl -O http://172.24.50.42/connector-Linux-latestversion.rpm
+curl -k -O http://172.24.50.42/connector-Linux-latestversion.rpm
 rpm --checksig connector-Linux-latestversion.rpm             <-- Check the RPM package
 rpm -ivh connector-Linux-latestversion.rpm	                 <-- To install the connector
 ```
@@ -19,6 +19,16 @@ rpm -ivh connector-Linux-latestversion.rpm	                 <-- To install the c
 List the installed package name
 ```
 rpm ‐qa udsagent
+```
+
+Verify the connector is running:
+```
+/etc/init.d/udsagent status
+```
+
+Ensure the Actifio connector is running
+```
+ps -ef | grep udsagent
 ```
 
 Uninstall the package using rpm ‐e udsagent with the package name:
@@ -84,5 +94,5 @@ List of udsagent related commands:
 /etc/init.d/udsagent start
 /etc/init.d/udsagent restart
 
-tail /var/act/log/UDSAgent.log
+tail -f /var/act/log/UDSAgent.log
 ```
