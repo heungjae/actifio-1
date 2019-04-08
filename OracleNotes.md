@@ -4,6 +4,15 @@
 The following is a checklist of all the required settings and components in an Oracle database prior to capturing it using Actifio software.
 
 ```
+
+[ ] Actifio Application Aware mounts may fail if your Oracle 12c installation does not include this patch. Oracle Database 12c Bug# 19404068 (ORA-1610 ON RECOVER DATABASE FOR CREATED CONTROLFILE)
+• (Patch 19404068) Linux x86-64 for Oracle 12.1.0.2.0
+• (Patch 19404068) IBM AIX on POWER Systems (64-bit) for Oracle 12.1.0.2.0
+• (Patch 19404068) Solaris on SPARC (64-bit) for Oracle 12.1.0.2.0
+To see if the patch is installed, run:
+  $ cd $ORACLE_HOME/OPatch
+  $ ./opatch lsinventory -details
+   
 The following files need to contain the relevant enteries for the database that you wish to protect using Actifio
 •	oratab file : typically contains an entry for each database, used by the oraenv software.
 •	tnsnames.ora file : configuration file containing the net service names, used to connect to an Oracle database
