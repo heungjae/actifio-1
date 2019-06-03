@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# File: /home/oracle/s3.sh
+# File: /home/oracle/sample3.sh
 #
 set +x
 
