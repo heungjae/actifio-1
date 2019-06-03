@@ -20,3 +20,9 @@ scriptname=`echo "$scriptname" | awk -F"^" '{print $(NF-1)}'`
 ORACLESID=`echo "$scriptname" | awk -F"^" '{print $(NF)}'`
 fi
 ```
+
+#  sudo -i is equal to su -
+#  sudo -i simulates a login into the root account: your working directory will be /root, 
+#      and root's .profile etc. will be sourced as if on login.
+#      The -s flag tells sqlplus to be banner silent and not prompt for any input 
+#           such as username/password or variable substitution
