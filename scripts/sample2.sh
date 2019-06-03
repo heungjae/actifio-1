@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# File: /home/oracle/s2.sh
+# File: /home/oracle/sample2.sh
 #
 set +x
 
@@ -22,5 +22,5 @@ echo "Number of processes: $v_processes"
 
 
 #
-#  su - oracle -c '/home/oracle/s2.sh' 
+#  su - oracle -c '/home/oracle/sample2.sh' 
 #
